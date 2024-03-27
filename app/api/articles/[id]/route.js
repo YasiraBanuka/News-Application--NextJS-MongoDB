@@ -4,9 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   const { id } = params;
-  const { newTitle: title, newContent: content } = await request.json();
+  const {
+    newTitle: title,
+    newContent: content,
+    imageUrl,
+  } = await request.json(); // Extract imageUrl from request body
   await connectMongoDB();
-  await Article.findByIdAndUpdate(id, { title, content });
+  await Article.findByIdAndUpdate(id, { title, content, imageUrl }); // Include imageUrl in the update query
   return NextResponse.json(
     { message: "Article updated successfully" },
     { status: 200 }

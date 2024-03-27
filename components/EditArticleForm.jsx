@@ -9,7 +9,7 @@ export default function EditArticleForm({ id, title, content }) {
 
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
-  const [newImage, setNewImage] = useState("");
+  const [newImage, setNewImage] = useState(null);
 
   const router = useRouter();
 
@@ -17,7 +17,12 @@ export default function EditArticleForm({ id, title, content }) {
     e.preventDefault();
 
     try {
-      const imageUrl = await uploadImage();
+      let imageUrl = ""; // Initialize imageUrl
+
+      if (newImage) {
+        // Check if a new image is selected
+        imageUrl = await uploadImage(); // Upload the new image
+      }
 
       const res = await fetch(`http://localhost:3000/api/articles/${id}`, {
         method: "PUT",
@@ -39,8 +44,6 @@ export default function EditArticleForm({ id, title, content }) {
   };
 
   const uploadImage = async () => {
-    if (!newImage) return;
-
     const formData = new FormData();
 
     formData.append("file", newImage);
@@ -54,11 +57,8 @@ export default function EditArticleForm({ id, title, content }) {
           body: formData,
         }
       );
-
       const data = await res.json();
-
       const imageUrl = data["secure_url"];
-
       return imageUrl;
     } catch (error) {
       console.log(error);
@@ -84,13 +84,13 @@ export default function EditArticleForm({ id, title, content }) {
           placeholder="Topic Description"
           rows={6}
         />
-        {/* <input
+        <input
           onChange={(e) => setNewImage(e.target.files[0])}
           className="border border-slate-500 px-4 py-2"
           type="file"
           placeholder="Article Image"
           accept=".jpg,.jpeg,.png"
-        /> */}
+        />
         <button
           type="submit"
           className="bg-green-600 font-bold text-white py-3 px-6 w-fit"
