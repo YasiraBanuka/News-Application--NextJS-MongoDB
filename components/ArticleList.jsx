@@ -22,21 +22,41 @@ export default async function ArticleList() {
   return (
     <>
       {articles.map((article) => (
-        <div className="p-4 border border-slate-300 mx-8 mb-4 flex justify-between gap-5 items-start">
+        <div
+          // style={{ maxWidth: "500px" }}
+          className="p-4 border border-slate-300 mx-8 mb-4 flex flex-col justify-between"
+          key={article._id}
+        >
           <div>
-            <h2 className="font-bold text-2xl">{article.title}</h2>
-            <div>Content: {article.content}</div>
-            <div>
-              Created at:{" "}
-              {format(new Date(article.createdAt), "MM/dd/yyyy hh:mm a")}
+            <h2 className="font-bold text-2xl mb-4">{article.title}</h2>
+
+            <div className="flex mb-2">
+              <div className="font-bold mr-2">Content:</div>
+              <div className="text-balance">{article.content}</div>
             </div>
+            <div className="flex">
+              <div className="font-bold mr-2">Posted Date: </div>
+              <div>
+                {format(new Date(article.createdAt), "MM/dd/yyyy hh:mm a")}
+              </div>
+            </div>
+            {article.imageUrl && (
+              <img
+                src={article.imageUrl}
+                alt="Article Image"
+                className="mt-4"
+                style={{ maxWidth: "15%" }}
+              />
+            )}
           </div>
 
-          <div className="flex gap-2">
-            <RemoveBtn id={article._id} />
-            <Link href={`/editArticle/${article._id}`}>
-              <HiPencilAlt size={24} />
-            </Link>
+          <div className="flex justify-end items-end gap-2">
+            <div className="flex gap-2">
+              <RemoveBtn id={article._id} />
+              <Link href={`/editArticle/${article._id}`}>
+                <HiPencilAlt size={24} />
+              </Link>
+            </div>
           </div>
         </div>
       ))}
