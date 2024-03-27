@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AddArticle() {
   const CLOUD_NAME = "djossd4aw";
@@ -10,6 +12,7 @@ export default function AddArticle() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -17,9 +20,11 @@ export default function AddArticle() {
     e.preventDefault();
 
     if (!title || !content || !image) {
-      alert("All fields are required");
+      toast.error("All fields are required");
       return;
     }
+
+    setLoading(true); // Start loading animation
 
     try {
       const imageUrl = await uploadImage();
@@ -36,9 +41,13 @@ export default function AddArticle() {
         throw new Error("Failed to create article!!");
       }
 
+      toast.success("Article created successfully!!");
+      setLoading(false); // Stop loading animation
       router.push("/");
       router.refresh();
     } catch (error) {
+      setLoading(false); // Stop loading animation
+      toast.error("Failed to create article!!");
       throw new Error("Failed to create article!!");
     }
   };
@@ -100,6 +109,11 @@ export default function AddArticle() {
           type="submit"
           className="bg-green-600 font-bold text-white py-3 px-6 w-fit"
         >
+          {loading && (
+            <div className="absolute inset-0 bg-gray-700 opacity-50 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            </div>
+          )}
           Add Article
         </button>
       </form>

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function EditArticleForm({ id, title, content }) {
   const CLOUD_NAME = "djossd4aw";
@@ -10,11 +12,14 @@ export default function EditArticleForm({ id, title, content }) {
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
   const [newImage, setNewImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true); // Start loading animation
 
     try {
       let imageUrl = ""; // Initialize imageUrl
@@ -36,9 +41,12 @@ export default function EditArticleForm({ id, title, content }) {
         throw new Error("Failed to update article!!");
       }
 
+      setLoading(false); // Stop loading animation
+
       router.push("/");
       router.refresh();
     } catch (error) {
+      setLoading(false); // Stop loading animation
       console.log(error);
     }
   };
@@ -95,6 +103,11 @@ export default function EditArticleForm({ id, title, content }) {
           type="submit"
           className="bg-green-600 font-bold text-white py-3 px-6 w-fit"
         >
+          {loading && (
+            <div className="absolute inset-0 bg-gray-700 opacity-50 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            </div>
+          )}
           Update Topic
         </button>
       </form>

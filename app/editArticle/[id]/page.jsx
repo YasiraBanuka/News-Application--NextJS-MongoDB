@@ -17,7 +17,14 @@ const getArticleById = async (id) => {
 export default async function EditArticle({ params }) {
   const { id } = params;
   const { article } = await getArticleById(id);
-  const { title, content } = article;
+  const { title, content, imageUrl } = article;
 
-  return <EditArticleForm id={id} title={title} content={content} />;
+  return (
+    <EditArticleForm
+      id={id}
+      title={title}
+      content={content}
+      imageUrl={imageUrl}
+    />
+  );
 }
