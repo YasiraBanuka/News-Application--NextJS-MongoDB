@@ -4,7 +4,7 @@ This is a simple news app where users can view, add, edit, and delete articles.
 
 ## Live Demo
 
-You can view the live deployment of the application [here]([https://your-app.netlify.app](https://yb-news-app.netlify.app/)).
+You can view the live deployment of the application [here](https://yb-news-app.netlify.app).
 
 
 ## Features
