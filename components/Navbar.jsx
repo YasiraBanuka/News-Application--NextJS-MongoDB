@@ -1,5 +1,7 @@
 import { HiHome } from "react-icons/hi";
 import Link from "next/link";
+import Image from "next/image";
+import person from "../public/person.png";
 
 export default function Navbar() {
   return (
@@ -12,8 +14,17 @@ export default function Navbar() {
           News Application Dashboard
         </Link>
       </div>
-      <div className="bg-gray-200 p-2 border-r-2 rounded">
-        <Link href="/addArticle">Add Article</Link>
+      <div className="flex gap-6">
+        <div className="bg-gray-200 p-2 border-r-2 rounded">
+          <Link href="/addArticle">Add Article</Link>
+        </div>
+        <Image
+          src={person}
+          width={45}
+          height={45}
+          className="rounded-full"
+          alt="person"
+        />
       </div>
     </nav>
   );
