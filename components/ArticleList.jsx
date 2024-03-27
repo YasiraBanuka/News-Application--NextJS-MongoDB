@@ -4,8 +4,10 @@ import { HiPencilAlt } from "react-icons/hi";
 import { format } from "date-fns";
 
 const getArticles = async () => {
+  const apiUrl = process.env.API_URL;
+
   try {
-    const res = await fetch("http://localhost:3000/api/articles", {
+    const res = await fetch(`${apiUrl}/api/articles`, {
       cache: "no-store",
     });
     if (!res.ok) throw new Error("Failed to fetch articles");

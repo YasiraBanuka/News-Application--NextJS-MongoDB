@@ -29,7 +29,7 @@ export default function AddArticle() {
     try {
       const imageUrl = await uploadImage();
 
-      const res = await fetch("http://localhost:3000/api/articles", {
+      const res = await fetch("/api/articles", {
         method: "POST",
         body: JSON.stringify({ title, content, imageUrl }),
         headers: {

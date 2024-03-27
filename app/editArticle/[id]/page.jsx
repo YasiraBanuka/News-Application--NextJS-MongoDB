@@ -1,8 +1,10 @@
 import EditArticleForm from "@/components/EditArticleForm";
 
 const getArticleById = async (id) => {
+  const apiUrl = process.env.API_URL;
+
   try {
-    const res = await fetch(`http://localhost:3000/api/articles/${id}`, {
+    const res = await fetch(`${apiUrl}/api/articles/${id}`, {
       cache: "no-store",
     });
 

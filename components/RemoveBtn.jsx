@@ -10,7 +10,7 @@ export default function RemoveBtn({ id }) {
     const confirmed = confirm("Are you sure?");
 
     if (confirmed) {
-      const res = await fetch(`http://localhost:3000/api/articles?id=${id}`, {
+      const res = await fetch(`/api/articles?id=${id}`, {
         method: "DELETE",
       });
 

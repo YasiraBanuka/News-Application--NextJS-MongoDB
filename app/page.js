@@ -1,9 +1,10 @@
 import ArticleList from "@/components/ArticleList";
 
 export default function Home() {
-  return (
-    <>
-      <ArticleList />
-    </>
-  );
+  // return (
+  //   <>
+  //     <ArticleList />
+  //   </>
+  // );
+  return <div>Hello</div>;
 }

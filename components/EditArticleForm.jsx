@@ -29,7 +29,7 @@ export default function EditArticleForm({ id, title, content }) {
         imageUrl = await uploadImage(); // Upload the new image
       }
 
-      const res = await fetch(`http://localhost:3000/api/articles/${id}`, {
+      const res = await fetch(`/api/articles/${id}`, {
         method: "PUT",
         body: JSON.stringify({ newTitle, newContent, imageUrl }),
         headers: {
